@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You should join Monumental</title>
+<meta name="description" content="Five years of building bricklaying robots at Monumental. Niall and Dom's talk at the Imperial College robotics meetup.">
+<meta property="og:title" content="You should join Monumental">
+<meta property="og:description" content="Five years of building bricklaying robots. We're hiring hardware engineers.">
+<meta property="og:image" content="img/poster-intro-workshop.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap">
+<style>
+@font-face{font-family:"Satoshi";src:url("Satoshi-Variable.ttf") format("truetype");font-weight:300 900;font-display:block}
+:root{
+  --cream:#FFFDEE; --indigo:#1A024D; --orange:#F74823; --wine:#721E3C;
+  --ground:var(--indigo); --ink:var(--cream);
+  --rule:rgba(255,253,238,.22);           /* hairline: cream on indigo, tinted by opacity */
+  --rule-strong:rgba(255,253,238,.5);
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --sans:"Satoshi","Helvetica Neue",Arial,sans-serif;
+}
+/* cream theme: monumental.co ground, solid indigo hairlines */
+body.cream{--ground:var(--cream);--ink:var(--indigo);--rule:var(--indigo);--rule-strong:var(--indigo)}
+body.cream .logo{color:var(--indigo)}
+body.cream .l-bleed .logo{color:var(--cream)}
+body.cream .l-bleed .top{border-bottom-color:rgba(255,253,238,.3)}
+body.cream .l-bleed .top>div{border-right-color:rgba(255,253,238,.3)}
+body.cream .l-bleed .cap,body.cream .l-bleed .num{color:var(--cream)}
+body.cream .cell{background:rgba(26,2,77,.05)}
+#stage{color:var(--ink)}
+.prog{position:absolute;left:0;bottom:0;height:4px;background:var(--orange)}
+.themebtn{all:unset;cursor:pointer;width:18px;height:18px;background:var(--cream);border:1px solid var(--rule-strong);opacity:.18;transition:opacity .2s}
+body.cream .themebtn{background:var(--indigo)}
+.themebtn:hover,.themebtn:focus-visible{opacity:1}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--ground);color:var(--ink);font-family:var(--sans);overflow:hidden}
+body{display:grid;place-items:center}
+
+/* 1920x1080 stage, scaled to fit, so every measurement below is exact */
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center;background:var(--ground);overflow:hidden}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility 0s linear .35s}
+.slide.on{opacity:1;visibility:visible;transition:opacity .35s ease}
+
+/* ── chrome: the 6-column top band (the ruler) and an orange progress hairline ── */
+.top{position:absolute;left:0;right:0;top:0;height:120px;border-bottom:1px solid var(--rule);display:grid;grid-template-columns:repeat(6,1fr)}
+.top>div{border-right:1px solid var(--rule);display:flex;align-items:center;padding:0 40px}
+.top>div:last-child{border-right:0;justify-content:flex-end}
+.logo{width:236px;height:auto;color:var(--orange);display:block}
+.eyebrow.num{font-variant-numeric:tabular-nums;text-transform:none}
+.eyebrow{font-family:var(--sans);font-weight:600;font-size:22px;letter-spacing:.01em;text-transform:lowercase;opacity:.75}
+
+/* ── title + media zone ── */
+.title{position:absolute;left:96px;right:96px;top:156px;font-family:var(--serif);font-weight:400;font-size:84px;line-height:1.02;letter-spacing:-.01em}
+.media{position:absolute;left:96px;right:96px;top:300px;height:684px;display:flex;justify-content:center;align-items:center;gap:24px}
+.media.notitle{top:168px;height:816px}
+.cell{position:relative;flex:none;height:100%;overflow:hidden;background:rgba(255,253,238,.04)}
+.cell img,.cell video{display:block;width:100%;height:100%;object-fit:cover}
+.cell.contain img{object-fit:contain;background:var(--cream)}
+.credit{position:absolute;left:96px;bottom:32px;font-size:16px;opacity:.5}
+
+/* grid 2x2 */
+.grid2{position:absolute;left:96px;right:96px;top:300px;height:684px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:24px}
+.grid2 .cell{height:auto;width:auto}
+
+/* video affordances: orange progress hairline, tap to pause */
+.cell .bar{position:absolute;left:0;bottom:0;height:4px;width:0;background:var(--orange)}
+.cell.paused::after{content:"";position:absolute;inset:0;margin:auto;width:0;height:0;border-left:56px solid var(--cream);border-top:34px solid transparent;border-bottom:34px solid transparent;opacity:.9;pointer-events:none}
+.cell.vid{cursor:pointer}
+
+/* full-bleed: media under the chrome, caption on the tile-cap gradient */
+.l-bleed .cell{position:absolute;inset:0;width:auto!important;height:auto}
+.l-bleed .top{background:transparent;border-bottom-color:rgba(255,253,238,.3)}
+.l-bleed .top>div{border-right-color:rgba(255,253,238,.3)}
+.l-bleed .cap{position:absolute;left:0;right:0;bottom:0;padding:160px 96px 72px;background:linear-gradient(to top,rgba(26,2,77,.85),rgba(26,2,77,0));font-family:var(--serif);font-size:84px;line-height:1}
+
+/* cover */
+.l-cover .big{position:absolute;left:96px;right:420px;top:330px;font-family:var(--serif);font-size:124px;line-height:.98;letter-spacing:-.015em}
+.l-cover .who{position:absolute;left:96px;top:720px;font-size:34px;font-weight:500}
+.l-cover .tag{position:absolute;left:96px;top:782px;display:inline-block;background:var(--orange);color:var(--indigo);font-weight:700;font-size:28px;padding:10px 20px}
+
+/* statement + stats */
+.stats{position:absolute;right:96px;top:150px;display:flex;gap:0}
+.stat{display:flex;flex-direction:column;justify-content:center;padding:0 0 0 40px;margin-left:40px;border-left:1px solid var(--rule)}
+.stat b{font-family:var(--serif);font-weight:400;font-size:72px;line-height:1;color:var(--orange);font-variant-numeric:lining-nums tabular-nums}
+.stat span{font-size:22px;font-weight:500;margin-top:8px;opacity:.8}
+
+/* questions */
+.l-questions .big{position:absolute;left:96px;top:300px;font-family:var(--serif);font-size:200px;line-height:.9}
+.l-questions .sub{position:absolute;left:96px;top:560px;font-size:34px;font-weight:500;line-height:1.5;opacity:.9}
+.l-questions .url{position:absolute;left:96px;top:600px;font-size:28px;font-weight:700;color:var(--orange)}
+.l-questions .qr{position:absolute;right:192px;top:228px;width:600px;height:600px;image-rendering:pixelated}
+.l-questions .qrcap{position:absolute;right:192px;top:856px;width:600px;text-align:center;font-size:28px;font-weight:500}
+
+/* overview (G) */
+body.grid #stage{display:none}
+#over{display:none;position:fixed;inset:0;overflow:auto;background:var(--indigo);padding:40px;grid-template-columns:repeat(5,1fr);gap:16px;align-content:start}
+body.grid #over{display:grid}
+#over button{all:unset;cursor:pointer;border:1px solid var(--rule);aspect-ratio:16/9;position:relative;overflow:hidden;color:var(--cream);font-family:var(--sans)}
+#over button img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+#over button span{position:absolute;left:12px;bottom:10px;right:12px;font-size:15px;font-weight:600}
+#over button:hover,#over button.cur{border-color:var(--orange)}
+#over button:hover span{color:var(--orange)}
+
+#help{position:fixed;left:16px;bottom:12px;font:500 12px var(--sans);color:var(--cream);opacity:0;transition:opacity .3s}
+body.hint #help{opacity:.6}
+</style>
+</head>
+<body class="hint">
+<div id="stage"></div>
+<div id="over"></div>
+<div id="help">T theme · → / space / click next · ← / click left edge back · F fullscreen · G overview · K pause video</div>
+
+<script>
+const LOGO='<svg class="logo" viewBox="0 0 118 27" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Monumental"><path fill="currentColor" d="M118 22.15v3.584h-8.946V.427h4.407v21.724H118ZM101.452 18.635h1.822l-.795-10.057-1.027 10.057ZM105.097.427l3.379 25.24h-4.44l-.332-3.517h-2.618l-.332 3.518h-3.677l3.281-25.24h4.739ZM98.429.427v3.484h-3.48v21.822h-4.406V3.912h-3.445V.427h11.33ZM86.391.427v25.306h-3.248l-3.278-12.981v12.981H76.22V.427h3.71l2.817 11.207V.427h3.644ZM75.471 22.184v3.484h-8.946V.428h8.912V3.91h-4.506v7h3.744v3.55H70.93v7.723h4.54ZM65.26.427v25.306h-4.243V13.902L59.13 25.734h-2.717l-1.988-11.832v11.832H50.78V.427h5.104l2.02 14.888L60.29.427h4.97ZM49.653.427v20.344c0 3.517-2.188 5.292-5.434 5.292s-5.4-1.775-5.4-5.258V.427h4.373V21.23c0 .953.498 1.446 1.26 1.446.696 0 .994-.493.994-1.48V.428h4.208-.001ZM37.682.427v25.306h-3.248l-3.28-12.981v12.981h-3.645V.427h3.71l2.818 11.207V.427h3.645ZM22.106 21.33V4.733c0-.986-.564-1.38-1.093-1.38-.663 0-1.127.395-1.127 1.38v16.563c0 .953.43 1.38 1.16 1.38.661 0 1.06-.395 1.06-1.348v.002Zm4.373-15.743v14.888c0 4.14-2.485 5.588-5.434 5.588-2.948 0-5.567-1.545-5.567-5.588V5.587C15.48 1.48 18.064 0 21.046 0c2.981 0 5.434 1.446 5.434 5.587ZM14.479.427v25.306h-4.241V13.902L8.35 25.734H5.633L3.645 13.901v11.832H0V.427h5.102l2.022 14.888L9.51.427h4.97Z"/></svg>';
+
+/* Sections label each slide in the presenter notes window. */
+const SECTIONS=['why','early days','lessons','scaling up','today','join us'];
+
+/* Media: [file, aspect ratio]. Videos are .mp4 in media/, posters in img/. */
+const I=(f,ar)=>({src:'img/'+f,ar});
+const V=(f,poster,ar,o={})=>({video:'media/'+f+'.mp4',poster:'img/'+poster,ar,...o});
+
+/* ── THE DECK. Edit text here. layout: cover | row | grid2 | bleed | stats | questions ── */
+const SLIDES=[
+{sec:0,layout:'cover',
+ notes:''},
+{sec:0,layout:'bleed',title:'',media:[V('intro-workshop','poster-intro-workshop.jpg',16/9)],
+ notes:''},
+{sec:0,title:'Why I became an engineer (and nearly quit)',media:[I('dyson-airblade.jpg',1),I('niall-hi-vis.jpg',.75)],
+ notes:''},
+{sec:0,title:'Why construction?',media:[{...I('chart-construction-productivity.jpg',1.5163),contain:true}],
+ notes:''},
+{sec:0,title:'The dream: beautiful, affordable buildings',media:[I('barbican.jpg',.6703),{...I('st-pancras.jpg',1.5004),credit:'St Pancras: mgaylard, CC BY 2.0'},{...I('battersea.jpg',.75),credit:'Battersea Power Station: Acabashi, CC BY-SA 4.0'}],
+ notes:''},
+
+{sec:1,title:'Parkinson’s Law',media:[I('poster-bricks-hands.jpg',16/9)],
+ notes:''},
+{sec:1,title:'Dec 2021: five people, one rough prototype',media:[I('2021-first-prototype.jpg',.75),V('2021-gripper','poster-2021-gripper.jpg',16/9)],
+ notes:''},
+{sec:1,title:'2022: the first crane (mostly breaking hardware)',media:[V('2022-crane-a','poster-2022-crane-a.jpg',9/16),V('2022-crane-b','poster-2022-crane-b.jpg',9/16,{muted:true})],
+ notes:''},
+{sec:1,title:'Off-the-shelf parts, built in-house',media:[I('off-the-shelf-assembly.jpg',4/3),I('off-the-shelf-electronics.jpg',4/3)],
+ notes:''},
+{sec:1,title:'Early prototypes: test on real bricks, fast',media:[I('prototype-gripper-test.jpg',4/3),I('prototype-brick-wall.jpg',4/3)],
+ notes:''},
+{sec:1,title:'Testing in the office courtyard',media:[I('courtyard-1.jpg',.75),I('courtyard-2.jpg',4/3),I('courtyard-3.jpg',.75)],
+ notes:''},
+{sec:1,title:'2023: still crappy, getting better',media:[V('2023-drive-base','poster-2023-drive-base.jpg',9/16,{muted:true,loop:true}),V('2023-rack-pinion','poster-2023-rack-pinion.jpg',16/9,{muted:true,loop:true}),V('2023-office-build','poster-2023-office-build.jpg',9/16,{loop:true})],
+ notes:''},
+
+{sec:2,title:'The best part is no part',media:[{...I('cad-hopper.png',1.1466),contain:true},V('hopper','poster-hopper.jpg',9/16,{loop:true})],
+ notes:''},
+{sec:2,title:'The proof is in the field',media:[I('field-house-scaffold.jpg',16/9),I('field-new-build-site.jpg',16/9)],
+ notes:''},
+{sec:2,title:'Every site is different',media:[I('field-canal-wall.jpg',4/3),I('field-street-wall.jpg',4/3)],
+ notes:''},
+{sec:2,title:'Bad things happen',media:[I('crashed-pisa.jpg',.75),I('burnt-board.jpg',.753)],
+ notes:''},
+
+{sec:3,title:'Our first 24-hour, non-stop build',media:[V('first-24h-build','poster-first-24h-build.jpg',16/9),I('first-24h-build-pyramids.jpg',4/3)],
+ notes:''},
+{sec:3,title:'Testing new robots at Plantage',media:[I('plantage-1.jpg',4/3),I('plantage-2.jpg',1.5004)],
+ notes:''},
+{sec:3,title:'The fleet: Pisa, Petra, Panama',media:[I('fleet-workshop.jpg',.6665),I('fleet-pisa.jpg',.6665),I('fleet-panama.jpg',.6665)],
+ notes:''},
+{sec:3,title:'New: wall pointing and building at height',media:[V('wall-pointing','poster-wall-pointing.jpg',16/9,{loop:true}),I('wall-at-height.jpg',.75)],
+ notes:''},
+
+{sec:4,layout:'stats',title:'Where are we now?',
+ stats:[['60','systems and growing'],['18,064','bricks laid in October, so far']],
+ media:[I('now-workshop.jpg',1.3),I('now-site.jpg',1.3)],
+ notes:''},
+{sec:4,layout:'bleed',title:'Full autonomy builds',media:[V('autonomy-build','poster-autonomy-build.jpg',16/9)],
+ notes:''},
+{sec:4,layout:'bleed',title:'',media:[V('aerial','poster-aerial.jpg',16/9)],
+ notes:''},
+{sec:4,layout:'bleed',title:'Inside Monumental',media:[V('inside-monumental','poster-inside-monumental.jpg',16/9)],
+ notes:''},
+
+{sec:5,title:'Why join Monumental?',media:[I('join-workshop.jpg',1.5004),I('join-site.jpg',1.5004)],
+ notes:''},
+{sec:5,layout:'questions',
+ notes:''},
+];
+
+/* ── render ── */
+const stage=document.getElementById('stage');
+const N=SLIDES.length, pad=n=>String(n).padStart(2,'0');
+const top_=(s,i)=>`<div class="top"><div>${LOGO}</div><div></div><div></div><div></div><div></div><div><button class="themebtn" title="Switch background (T)" aria-label="Switch background"></button></div></div>`;
+
+function cell(m){
+  if(m.video) return `<div class="cell vid paused" data-ar="${m.ar}"><video src="${m.video}" poster="${m.poster}" playsinline preload="metadata" ${m.loop?'loop':''} ${m.muted?'data-muted="1"':''}></video><i class="bar"></i></div>`;
+  return `<div class="cell ${m.contain?'contain':''}" data-ar="${m.ar}"><img src="${m.src}" alt="${m.credit||''}" ${m.credit?`title="Photo: ${m.credit}"`:''} decoding="async"></div>`;
+}
+function build(s,i){
+  const el=document.createElement('section'); el.className='slide l-'+(s.layout||'row');
+  let h='';
+  if(s.layout==='cover'){
+    h=`<div class="big">Automating onsite construction with robotics &amp; software</div><div class="who">Niall &amp; Dom · Monumental</div><div class="tag">We’re hiring hardware engineers</div>`;
+  }else if(s.layout==='bleed'){
+    h=s.media.map(cell).join('')+(s.title?`<div class="cap">${s.title}</div>`:'');
+  }else if(s.layout==='grid2'){
+    h=`<div class="title">${s.title}</div><div class="grid2">${s.media.map(cell).join('')}</div>`;
+  }else if(s.layout==='stats'){
+    h=`<div class="title">${s.title}</div><div class="stats">${s.stats.map(([b,t])=>`<div class="stat"><b>${b}</b><span>${t}</span></div>`).join('')}</div><div class="media">${s.media.map(cell).join('')}</div>`;
+  }else if(s.layout==='questions'){
+    h=`<div class="big">Questions?</div><div class="url">monumental.co</div><img class="qr" src="img/qr.png" alt="QR code to our links"><div class="qrcap">LinkedIn · WhatsApp · YouTube · Substack</div>`;
+  }else{
+    h=`<div class="title">${s.title}</div><div class="media ${s.title?'':'notitle'}">${s.media.map(cell).join('')}</div>`;
+  }
+  el.innerHTML=top_(s,i)+h+(s.credit?`<div class="credit">${s.credit}</div>`:'')+`<i class="prog" style="width:${(i+1)/N*100}%"></i>`;
+  return el;
+}
+SLIDES.forEach((s,i)=>stage.appendChild(build(s,i)));
+const els=[...stage.children];
+
+/* Row layout: one shared height for every item in a row; shrink the row to fit the width.
+   Gaps are fixed at 24px and the group is centred, so every slide is symmetric by construction. */
+function layoutRows(){
+  els.forEach(el=>el.querySelectorAll('.media').forEach(row=>{
+    const cells=[...row.children], gap=24;
+    const W=row.clientWidth, H=row.clientHeight;
+    const sum=cells.reduce((a,c)=>a+ +c.dataset.ar,0);
+    const h=Math.min(H,(W-gap*(cells.length-1))/sum);
+    cells.forEach(c=>{c.style.height=h+'px';c.style.width=(h*c.dataset.ar)+'px'});
+  }));
+}
+
+/* ── scaling ── */
+function fit(){const k=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`translate(-50%,-50%) scale(${k})`}
+addEventListener('resize',fit);fit();
+// measure at native size (clientWidth ignores transforms)
+layoutRows();
+
+/* ── navigation + video ── */
+let cur=0;
+function vids(i){return [...els[i].querySelectorAll('video')]}
+function go(i){
+  i=Math.max(0,Math.min(N-1,i));
+  vids(cur).forEach(v=>{v.pause()});
+  els[cur].classList.remove('on'); cur=i; els[cur].classList.add('on');
+  history.replaceState(null,'','#'+(cur+1));
+  // first video on the slide plays with sound; the rest play muted alongside it
+  vids(cur).forEach((v,k)=>{v.muted=k>0||v.dataset.muted==='1';v.currentTime=v.currentTime||0;v.play().catch(()=>{})});
+  // warm the next slide's media
+  if(els[cur+1]) els[cur+1].querySelectorAll('img').forEach(im=>im.decode&&im.decode().catch(()=>{}));
+  if(els[cur+1]) els[cur+1].querySelectorAll('video').forEach(v=>v.preload='auto');
+  sendNotes();
+  document.querySelectorAll('#over button').forEach((b,k)=>b.classList.toggle('cur',k===cur));
+}
+/* No clicker: click a video to pause/play it; click anywhere else to advance (left quarter goes back). */
+stage.addEventListener('click',e=>{
+  if(e.target.closest('.themebtn')){toggleTheme();return}
+  const c=e.target.closest('.cell.vid');
+  if(c){const v=c.querySelector('video');v.paused?v.play():v.pause();return}
+  const r=stage.getBoundingClientRect();
+  (e.clientX-r.left)<r.width*.25?go(cur-1):go(cur+1);
+});
+document.querySelectorAll('video').forEach(v=>{
+  const c=v.parentElement,bar=c.querySelector('.bar');
+  v.addEventListener('play',()=>c.classList.remove('paused'));
+  v.addEventListener('pause',()=>c.classList.add('paused'));
+  v.addEventListener('timeupdate',()=>{bar.style.width=(v.currentTime/v.duration*100||0)+'%'});
+  v.addEventListener('ended',()=>c.classList.add('paused'));
+});
+addEventListener('keydown',e=>{
+  document.body.classList.remove('hint');
+  const k=e.key;
+  if(['ArrowRight','PageDown',' ','ArrowDown','Enter'].includes(k)){e.preventDefault();if(document.body.classList.contains('grid'))return toggleGrid();go(cur+1)}
+  else if(['ArrowLeft','PageUp','ArrowUp','Backspace'].includes(k)){e.preventDefault();go(cur-1)}
+  else if(k==='Home')go(0); else if(k==='End')go(N-1);
+  else if(k==='f'||k==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+  else if(k==='g'||k==='G'||k==='Escape'&&document.body.classList.contains('grid'))toggleGrid();
+  else if(k==='n'||k==='N')openNotes();
+  else if(k==='t'||k==='T')toggleTheme();
+  else if(k==='k'||k==='K'){const v=vids(cur)[0];if(v)v.paused?v.play():v.pause()}
+});
+setTimeout(()=>document.body.classList.remove('hint'),6000);
+
+/* ── theme toggle: T key or the button in the top band; remembered per browser ── */
+function setTheme(c){document.body.classList.toggle('cream',c);document.querySelectorAll('.themebtn').forEach(b=>b.title=c?'Switch to indigo (T)':'Switch to cream (T)');try{localStorage.setItem('deck-theme',c?'cream':'indigo')}catch(e){}}
+function toggleTheme(){setTheme(!document.body.classList.contains('cream'))}
+{let t=new URLSearchParams(location.search).get('theme');if(!t){try{t=localStorage.getItem('deck-theme')}catch(e){}}setTheme(t==='cream')}
+
+/* ── overview ── */
+const over=document.getElementById('over');
+SLIDES.forEach((s,i)=>{
+  const b=document.createElement('button');
+  const m=(s.media||[])[0];const thumb=m?(m.poster||m.src):'';
+  b.innerHTML=(thumb?`<img src="${thumb}" alt="">`:'')+`<span>${pad(i+1)} · ${s.title||(s.layout==='cover'?'Cover':s.layout==='questions'?'Questions':'Video')}</span>`;
+  b.onclick=()=>{toggleGrid();go(i)};over.appendChild(b);
+});
+function toggleGrid(){document.body.classList.toggle('grid')}
+
+/* ── presenter notes window (N) ── */
+let nw=null,t0=null;
+function openNotes(){
+  nw=window.open('','imperial-notes','width=900,height=640');
+  if(!nw)return;
+  nw.document.title='Notes';
+  nw.document.body.innerHTML='';
+  nw.document.head.innerHTML=`<style>body{margin:0;background:#1A024D;color:#FFFDEE;font:500 26px/1.45 Satoshi,"Helvetica Neue",Arial,sans-serif;padding:36px 44px}
+  .h{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,253,238,.25);padding-bottom:14px;margin-bottom:22px;font-size:18px;opacity:.75}
+  .t{font-size:34px;font-weight:700;margin-bottom:16px;color:#F74823}.n{white-space:pre-wrap}.x{margin-top:28px;padding-top:14px;border-top:1px solid rgba(255,253,238,.25);font-size:18px;opacity:.6}</style>`;
+  nw.addEventListener('keydown',e=>dispatchEvent(new KeyboardEvent('keydown',{key:e.key})));
+  t0=t0||Date.now(); sendNotes();
+}
+function sendNotes(){
+  if(!nw||nw.closed)return;
+  const s=SLIDES[cur],nx=SLIDES[cur+1];
+  const mins=t0?Math.floor((Date.now()-t0)/60000):0;
+  nw.document.body.innerHTML=`<div class="h"><span>${pad(cur+1)} / ${N} · ${SECTIONS[s.sec]}</span><span>${mins} min</span></div>
+  <div class="t">${s.title||(s.layout==='cover'?'Cover':s.layout==='questions'?'Questions?':'Video')}</div><div class="n">${s.notes||''}</div>
+  <div class="x">Next: ${nx?(nx.title||(nx.layout==='questions'?'Questions?':'Video')):'end'}</div>`;
+}
+setInterval(sendNotes,30000);
+
+go(Math.max(0,(parseInt(location.hash.slice(1))||1)-1));
+</script>
+</body>
+</html>

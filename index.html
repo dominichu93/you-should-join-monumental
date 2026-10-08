@@ -245,13 +245,8 @@ function go(i){
   els[cur].classList.remove('on'); cur=i; els[cur].classList.add('on');
   history.replaceState(null,'','#'+(cur+1));
   // first video on the slide plays with sound; the rest play muted alongside it
-  // first video on the slide plays with sound; if the browser blocks sound (no recent click/keypress),
-  // play muted right away and turn the sound on at the next click or key
-  vids(cur).forEach((v,k)=>{
-    const sound=k===0&&v.dataset.muted!=='1';
-    v.preload='auto'; v.muted=!sound;
-    v.play().catch(()=>{v.muted=true;v.play().catch(()=>{});if(sound)pendingSound=v});
-  });
+  // videos never start on their own: click one (or press K) to play it, with sound
+  vids(cur).forEach(v=>{v.preload='auto'});
   // warm the next slide's media
   if(els[cur+1]) els[cur+1].querySelectorAll('img').forEach(im=>im.decode&&im.decode().catch(()=>{}));
   [1,2].forEach(d=>{if(els[cur+d]) els[cur+d].querySelectorAll('video').forEach(v=>v.preload='auto')});
@@ -262,7 +257,7 @@ function go(i){
 stage.addEventListener('click',e=>{
   if(e.target.closest('.themebtn')){toggleTheme();return}
   const c=e.target.closest('.cell.vid');
-  if(c){const v=c.querySelector('video');v.paused?v.play():v.pause();return}
+  if(c){const v=c.querySelector('video');if(v.paused){v.muted=false;v.play()}else v.pause();return}
   const r=stage.getBoundingClientRect();
   (e.clientX-r.left)<r.width*.25?go(cur-1):go(cur+1);
 });
@@ -283,7 +278,7 @@ addEventListener('keydown',e=>{
   else if(k==='g'||k==='G'||k==='Escape'&&document.body.classList.contains('grid'))toggleGrid();
   else if(k==='n'||k==='N')openNotes();
   else if(k==='t'||k==='T')toggleTheme();
-  else if(k==='k'||k==='K'){const v=vids(cur)[0];if(v)v.paused?v.play():v.pause()}
+  else if(k==='k'||k==='K'){const v=vids(cur)[0];if(v){if(v.paused){v.muted=false;v.play()}else v.pause()}}
 });
 setTimeout(()=>document.body.classList.remove('hint'),6000);
 

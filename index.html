@@ -139,7 +139,7 @@ const SLIDES=[
  notes:''},
 {sec:1,title:'',media:[V('2022-crane-a','poster-2022-crane-a.jpg',9/16),V('2022-crane-b','poster-2022-crane-b.jpg',9/16,{muted:true})],
  notes:''},
-{sec:1,title:'',media:[I('off-the-shelf-assembly.jpg',4/3),I('off-the-shelf-electronics.jpg',4/3)],
+{sec:1,title:'',media:[I('off-the-shelf-electronics.jpg',4/3),I('off-the-shelf-assembly.jpg',4/3)],
  notes:''},
 {sec:1,title:'',media:[I('prototype-gripper-test.jpg',4/3),I('prototype-brick-wall.jpg',4/3)],
  notes:''},
@@ -198,7 +198,7 @@ function build(s,i){
   const el=document.createElement('section'); el.className='slide l-'+(s.layout||'row');
   let h='';
   if(s.layout==='cover'){
-    h=`<div class="big">Automating onsite construction with robotics &amp; software</div><div class="who">Dom, Chief of Staff · Niall, Founding Hardware Engineer</div><div class="tag">We’re hiring hardware engineers</div>`;
+    h=`<div class="big">Automating onsite construction with robotics &amp; software</div><div class="who">Dom &amp; Niall</div><div class="tag">We’re hiring hardware engineers</div>`;
   }else if(s.layout==='bleed'){
     h=s.media.map(cell).join('')+(s.title?`<div class="cap">${s.title}</div>`:'');
   }else if(s.layout==='grid2'){

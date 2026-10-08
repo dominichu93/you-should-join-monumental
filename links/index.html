@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dom Hurst · Monumental</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap">
+<meta property="og:title" content="Dom Hurst · Monumental">
+<style>
+  /* Layout: one framed column of hairline cells on cream, ruler band, full-bleed orange footer. Single committed look (Monumental house style). */
+  :root {
+    --cream: #FFFDEE;
+    --indigo: #1A024D;
+    --orange: #F74823;
+    --wine: #721E3C;
+    --ink-soft: rgba(26, 2, 77, 0.62);
+    --serif: "Instrument Serif", "PP Editorial New", Georgia, "Times New Roman", serif;
+    --sans: "DM Sans", "Satoshi", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--indigo);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .shell {
+    max-width: 640px;
+    margin: 0 auto;
+    padding-inline: 16px;
+    padding-block: 24px 0;
+  }
+  .frame { border: 1px solid var(--indigo); border-bottom: 0; }
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 20px; border-bottom: 1px solid var(--indigo);
+  }
+  .topbar svg { height: 34px; width: auto; display: block; }
+  .eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.02em; }
+  .head { padding: 36px 20px 32px; border-bottom: 1px solid var(--indigo); }
+  .head h1 {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(2.6rem, 11vw, 3.6rem); line-height: 0.98;
+    margin: 0 0 14px; text-wrap: balance; letter-spacing: -0.01em;
+  }
+  .head h1 em { font-style: italic; color: var(--orange); }
+  .head p { margin: 0; color: var(--ink-soft); max-width: 34ch; }
+  .band { display: grid; grid-template-columns: repeat(6, 1fr); height: 2.4rem; border-bottom: 1px solid var(--indigo); }
+  .band div + div { border-left: 1px solid var(--indigo); }
+  .label { padding: 14px 20px 10px; border-bottom: 1px solid var(--indigo); }
+  .links { list-style: none; margin: 0; padding: 0; }
+  .links li { border-bottom: 1px solid var(--indigo); }
+  .link {
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px;
+    padding: 20px; color: var(--indigo); text-decoration: none;
+    transition: background-color .15s ease, color .15s ease;
+  }
+  .link:hover, .link:focus-visible { background: var(--indigo); color: var(--cream); outline: none; }
+  .link:focus-visible { box-shadow: inset 0 0 0 3px var(--orange); }
+  .link .name { font-family: var(--serif); font-size: 1.75rem; line-height: 1.1; }
+  .link .meta { display: block; font-size: 0.88rem; opacity: 0.7; margin-top: 4px; min-width: 0; overflow-wrap: anywhere; }
+  .link .arrow { font-size: 1.4rem; line-height: 1; }
+  .link.primary { background: var(--orange); }
+  .link.primary:hover, .link.primary:focus-visible { background: var(--indigo); }
+  .copyrow {
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 12px 20px 16px; border-top: 1px dashed var(--ink-soft);
+  }
+  .num { font-variant-numeric: tabular-nums; user-select: all; font-weight: 500; }
+  .btn {
+    font: 600 0.85rem var(--sans); color: var(--indigo); background: transparent;
+    border: 1px solid var(--indigo); padding: 7px 14px; cursor: pointer;
+  }
+  .btn:hover, .btn:focus-visible { background: var(--indigo); color: var(--cream); }
+  .roles { padding: 22px 20px 26px; border-bottom: 1px solid var(--indigo); }
+  .roles p { margin: 6px 0 0; color: var(--ink-soft); max-width: 46ch; }
+  footer { background: var(--orange); color: var(--indigo); margin-top: 0; }
+  footer .inner { max-width: 640px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 32px; }
+  footer svg { width: 100%; height: auto; display: block; }
+  .topbar .who { font-family: var(--serif); font-size: 1.6rem; line-height: 1; }
+  footer small { display: block; font-size: 0.9rem; font-weight: 500; }
+  .qr { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 28px 20px; border-bottom: 1px solid var(--indigo); }
+  .qr img { width: 200px; height: 200px; image-rendering: pixelated; }
+  .qr .url { font-size: 0.85rem; overflow-wrap: anywhere; text-align: center; }
+  @media (prefers-reduced-motion: reduce) { .link { transition: none; } }
+</style>
+</head>
+<body>
+
+
+<div class="shell">
+  <div class="frame">
+    <div class="topbar">
+      <svg viewBox="0 0 118 27" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Monumental"><path fill="currentColor" d="M118 22.15v3.584h-8.946V.427h4.407v21.724H118ZM101.452 18.635h1.822l-.795-10.057-1.027 10.057ZM105.097.427l3.379 25.24h-4.44l-.332-3.517h-2.618l-.332 3.518h-3.677l3.281-25.24h4.739ZM98.429.427v3.484h-3.48v21.822h-4.406V3.912h-3.445V.427h11.33ZM86.391.427v25.306h-3.248l-3.278-12.981v12.981H76.22V.427h3.71l2.817 11.207V.427h3.644ZM75.471 22.184v3.484h-8.946V.428h8.912V3.91h-4.506v7h3.744v3.55H70.93v7.723h4.54ZM65.26.427v25.306h-4.243V13.902L59.13 25.734h-2.717l-1.988-11.832v11.832H50.78V.427h5.104l2.02 14.888L60.29.427h4.97ZM49.653.427v20.344c0 3.517-2.188 5.292-5.434 5.292s-5.4-1.775-5.4-5.258V.427h4.373V21.23c0 .953.498 1.446 1.26 1.446.696 0 .994-.493.994-1.48V.428h4.208-.001ZM37.682.427v25.306h-3.248l-3.28-12.981v12.981h-3.645V.427h3.71l2.818 11.207V.427h3.645ZM22.106 21.33V4.733c0-.986-.564-1.38-1.093-1.38-.663 0-1.127.395-1.127 1.38v16.563c0 .953.43 1.38 1.16 1.38.661 0 1.06-.395 1.06-1.348v.002Zm4.373-15.743v14.888c0 4.14-2.485 5.588-5.434 5.588-2.948 0-5.567-1.545-5.567-5.588V5.587C15.48 1.48 18.064 0 21.046 0c2.981 0 5.434 1.446 5.434 5.587ZM14.479.427v25.306h-4.241V13.902L8.35 25.734H5.633L3.645 13.901v11.832H0V.427h5.102l2.022 14.888L9.51.427h4.97Z"/></svg>
+      <span class="who">Dom Hurst</span>
+    </div>
+    <ul class="links">
+      <li>
+        <a class="link primary" href="https://wa.me/447309071161?text=Hi%20Dom%2C%20saw%20your%20talk%20and%20want%20to%20chat%20about%20Monumental" target="_blank" rel="noopener">
+          <span><span class="name">WhatsApp</span><span class="meta">+44 7309 071161</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="link" href="https://www.linkedin.com/in/dhurst1/" target="_blank" rel="noopener">
+          <span><span class="name">LinkedIn</span><span class="meta">linkedin.com/in/dhurst1</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="links">
+      <li>
+        <a class="link" href="https://www.youtube.com/@buildmonumental" target="_blank" rel="noopener">
+          <span><span class="name">YouTube</span><span class="meta">youtube.com/@buildmonumental</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="link" href="https://substack.com/@buildmonumental" target="_blank" rel="noopener">
+          <span><span class="name">Substack</span><span class="meta">substack.com/@buildmonumental</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="link" href="https://www.monumental.co" target="_blank" rel="noopener">
+          <span><span class="name">Website</span><span class="meta">monumental.co</span></span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </li>
+    </ul>
+    <div class="qr">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCCAIAAADzel4SAAAJqUlEQVR4nO3d0Y3ryBFAUY3xHIWCc2wbnH4nAWMwzoBY7HWjuslz/kVJpHTRP4X6+v35fgHwT/3rH78SABkFqGQUIJFRgERGARIZBUhkFCCRUYBERgESGQVIZBQgkVGAREYBEhkFSGQUIJFRgERGARIZBUhkFCCRUYBERgESGQVIZBQgkVGAREYBEhkFSGQUIJFRgERGARIZBUhkFCCRUYBERgESGQVIZBQgkVGAREYBEhkFSGQUIPnzGvL+939e9/L57183u1fX3+j6U5XXrvtUxdQ3ujb1FJ72H7zmNAqQyChAIqMAiYwCJDIKkMgoQCKjAImMAiQyCnDmFNOe0wjX1k19TM3e3O9T7TnjVJTvWzztP1g4jQIkMgqQyChAIqMAiYwCJDIKkMgoQCKjAImMAtxxiuna02ZRpl675xzLnlMuU7NGe75vceKvzmkUIJFRgERGARIZBUhkFCCRUYBERgESGQVIZBTgeVNM93PiTMjUbNWeu6fW7YA6carnaZxGARIZBUhkFCCRUYBERgESGQVIZBQgkVGAREYBElNMW1g3A3Nt3TTR1I6gYmryqtjzUz2N0yhAIqMAiYwCJDIKkMgoQCKjAImMAiQyCpDIKMDzppieNpux7vvueeWpLU97bpdaN8NWPO0/eM1pFCCRUYBERgESGQVIZBQgkVGAREYBEhkFSGQU4I5TTHtObkw5cTLHjqC/b919LvwH/z6nUYBERgESGQVIZBQgkVGAREYBEhkFSGQUIJFRgDOnmMyx7GDdrNHUa5/2mzzxPt+P0yhAIqMAiYwCJDIKkMgoQCKjAImMAiQyCpDIKEDy9fvz/Zqw5/6Z4n4zIeU+l7txv9/GOuvu85TPgf8jp1GAREYBEhkFSGQUIJFRgERGARIZBUhkFCCRUYAzp5im5ivKDMzU/MzUXMfTvtGJ8zPrvtHUla/t+YycRgESGQVIZBQgkVGAREYBEhkFSGQUIJFRgERGAZI/ryEnzgvt+b7rXnttzzmWE2dv1v2uprYtvYe+0dSMk9MoQCKjAImMAiQyCpDIKEAiowCJjAIkMgqQyCjAmVNMe05f3G/GacrUtMmJM13lylPTgFP7lN5b/tqdRgESGQVIZBQgkVGAREYBEhkFSGQUIJFRgERGAZKv35/v135O3Huz7n3XTchMzRpNbUzac35m6j7fb3buYxcTwIlkFCCRUYBERgESGQVIZBQgkVGAREYBEhkFuOMupqlphD3fd8+JkWtTe37KldftYrp+33X7lPacB7sfp1GAREYBEhkFSGQUIJFRgERGARIZBUhkFCCRUYDn7WKamqCYmibac1fPOlMbk/bc1HQ/nwO3ll1zGgVIZBQgkVGAREYBEhkFSGQUIJFRgERGARIZBbjjLqb77dtZN7mxbn5makPU1ERQeYJTk2Z7bvH6PGxTk9MoQCKjAImMAiQyCpDIKEAiowCJjAIkMgqQyCjAmVNMJ85mTM0ardtOc33ldc9o3dajqU917cT9QlNzd58DJ6CcRgESGQVIZBQgkVGAREYBEhkFSGQUIJFRgERGAZKv35/v12mmtg/tac/JnHUzMFMbsaa+0ZSpObQT75XTKEAiowCJjAIkMgqQyChAIqMAiYwCJDIKkMgowJm7mNaZmq+4duIMzNS+nXUbotY5cVpsz3v1PvDpO40CJDIKkMgoQCKjAImMAiQyCpDIKEAiowCJjAIkN5xiut9E0Lq5rOsrnzghc+J9XjctdqLPsnu1jtMoQCKjAImMAiQyCpDIKEAiowCJjAIkMgqQyCjAmVNMe04jXFs3t7Nu5mdqmujE/UL3m/hat9doamvZZ8vfs9MoQCKjAImMAiQyCpDIKEAiowCJjAIkMgqQyChA8vX78/3az54zTvYL/b+uXN63OHHb0p7zUdfeW36qdZxGARIZBUhkFCCRUYBERgESGQVIZBQgkVGAREYB7riLaWom5MQNQtf23FxUrPttnPiNpl67znvo3104jQIkMgqQyChAIqMAiYwCJDIKkMgoQCKjAImMApy5i2lquqaY+lQnbj26dr9tPHvOGp34i30fuMfJaRQgkVGAREYBEhkFSGQUIJFRgERGARIZBUhkFODMKaapCYoTt9MU99vy9DQn3snPlrvU1nEaBUhkFCCRUYBERgESGQVIZBQgkVGAREYBEhkFSP68hpw4p7TnRFC5k3tOIu05qbLOuid4bc//wolP32kUIJFRgERGARIZBUhkFCCRUYBERgESGQVIZBTgzF1Me+5E2nOu49rU3ShOnJ7a81e37n3v9wTXcRoFSGQUIJFRgERGARIZBUhkFCCRUYBERgESGQU4cxfTOutmQqauXF47talpz00+159q6glO/SbXzUets+emJqdRgERGARIZBUhkFCCRUYBERgESGQVIZBQgkVGA5IZTTMXUXMfUZqo9rzy1I2jdxNfTJpHeW36qdZxGARIZBUhkFCCRUYBERgESGQVIZBQgkVGAREYBzpxiWrd9aN1ri6kJmSnrPvPTtksV6z7V1N6qPTmNAiQyCpDIKEAiowCJjAIkMgqQyChAIqMAiYwCnDnFdOJkTpnNWLcFaJ11Uz177o8q73ut3Kup/VHrZgXfWz6jwmkUIJFRgERGARIZBUhkFCCRUYBERgESGQVIZBTgzCmmE7e13G8L0NSV1722WDdbteeWp6lNTZ8t/92F0yhAIqMAiYwCJDIKkMgoQCKjAImMAiQyCpDIKMAdp5iu3W+Xy7pvtOe+nanJqz2ntqa2La3z2XJqax2nUYBERgESGQVIZBQgkVGAREYBEhkFSGQUIJFRgOdNMd1PmfqYmgm535zSntM195uturbnU7jmNAqQyChAIqMAiYwCJDIKkMgoQCKjAImMAiQyCpCYYtrCiZMb677R/WaNyhxase5uTF35veXTdxoFSGQUIJFRgERGARIZBUhkFCCRUYBERgESGQV43hTTiVM9Uxt17jflcm3PHUFTT39qF9Nn2d3Yk9MoQCKjAImMAiQyCpDIKEAiowCJjAIkMgqQyCjAHaeY1s2iTDlx6mPPiaBr6+7V/fYpTT3f+3EaBUhkFCCRUYBERgESGQVIZBQgkVGAREYBEhkFSL5+f77bFQAezWkUIJFRgERGARIZBUhkFCCRUYBERgESGQVIZBQgkVGAREYBEhkFSGQUIJFRgERGARIZBUhkFCCRUYBERgESGQVIZBQgkVGAREYBEhkFSGQUIJFRgERGARIZBUhkFCCRUYBERgESGQVIZBQgkVGAREYBEhkFSGQUIJFRgERGAV7F/wBUCrlurhekPAAAAABJRU5ErkJggg==" alt="QR code for this page" width="200" height="200">
+      <span class="url">dominichu93.github.io/you-should-join-monumental/links</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="inner">
+    <svg viewBox="0 0 118 27" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Monumental"><path fill="currentColor" d="M118 22.15v3.584h-8.946V.427h4.407v21.724H118ZM101.452 18.635h1.822l-.795-10.057-1.027 10.057ZM105.097.427l3.379 25.24h-4.44l-.332-3.517h-2.618l-.332 3.518h-3.677l3.281-25.24h4.739ZM98.429.427v3.484h-3.48v21.822h-4.406V3.912h-3.445V.427h11.33ZM86.391.427v25.306h-3.248l-3.278-12.981v12.981H76.22V.427h3.71l2.817 11.207V.427h3.644ZM75.471 22.184v3.484h-8.946V.428h8.912V3.91h-4.506v7h3.744v3.55H70.93v7.723h4.54ZM65.26.427v25.306h-4.243V13.902L59.13 25.734h-2.717l-1.988-11.832v11.832H50.78V.427h5.104l2.02 14.888L60.29.427h4.97ZM49.653.427v20.344c0 3.517-2.188 5.292-5.434 5.292s-5.4-1.775-5.4-5.258V.427h4.373V21.23c0 .953.498 1.446 1.26 1.446.696 0 .994-.493.994-1.48V.428h4.208-.001ZM37.682.427v25.306h-3.248l-3.28-12.981v12.981h-3.645V.427h3.71l2.818 11.207V.427h3.645ZM22.106 21.33V4.733c0-.986-.564-1.38-1.093-1.38-.663 0-1.127.395-1.127 1.38v16.563c0 .953.43 1.38 1.16 1.38.661 0 1.06-.395 1.06-1.348v.002Zm4.373-15.743v14.888c0 4.14-2.485 5.588-5.434 5.588-2.948 0-5.567-1.545-5.567-5.588V5.587C15.48 1.48 18.064 0 21.046 0c2.981 0 5.434 1.446 5.434 5.587ZM14.479.427v25.306h-4.241V13.902L8.35 25.734H5.633L3.645 13.901v11.832H0V.427h5.102l2.022 14.888L9.51.427h4.97Z"/></svg>
+  </div>
+</footer>
+
+
+
+</body>
+</html>

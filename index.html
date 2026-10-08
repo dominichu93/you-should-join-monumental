@@ -124,31 +124,33 @@ const V=(f,poster,ar,o={})=>({video:'media/'+f+'.mp4',poster:'img/'+poster,ar,..
 const SLIDES=[
 {sec:0,layout:'cover',
  notes:''},
-{sec:0,layout:'bleed',title:'',media:[V('intro-workshop','poster-intro-workshop.jpg',16/9)],
- notes:''},
 {sec:0,title:'Why I became an engineer (and nearly quit)',media:[I('dyson-airblade.jpg',1),I('niall-hi-vis.jpg',.75)],
  notes:''},
 {sec:0,title:'Why construction?',media:[{...I('chart-construction-productivity.jpg',1.5163),contain:true}],
  notes:''},
 {sec:0,title:'The dream: beautiful, affordable buildings',media:[I('barbican.jpg',.6703),{...I('st-pancras.jpg',1.5004),credit:'St Pancras: mgaylard, CC BY 2.0'},{...I('battersea.jpg',.75),credit:'Battersea Power Station: Acabashi, CC BY-SA 4.0'}],
  notes:''},
+{sec:0,layout:'bleed',title:'',media:[V('intro-workshop','poster-intro-workshop.jpg',16/9)],
+ notes:''},
 
-{sec:1,title:'Parkinson’s Law',media:[I('poster-bricks-hands.jpg',16/9)],
+{sec:1,title:'Parkinson’s Law',media:[I('fleet-pisa.jpg',.6665),I('fleet-panama.jpg',.6665),I('fleet-petra.jpg',.6665)],
  notes:''},
-{sec:1,title:'Dec 2021: five people, one rough prototype',media:[I('2021-first-prototype.jpg',.75),V('2021-gripper','poster-2021-gripper.jpg',16/9)],
+{sec:1,title:'',media:[I('2021-first-prototype.jpg',.75),V('2021-gripper','poster-2021-gripper.jpg',16/9)],
  notes:''},
-{sec:1,title:'2022: the first crane (mostly breaking hardware)',media:[V('2022-crane-a','poster-2022-crane-a.jpg',9/16),V('2022-crane-b','poster-2022-crane-b.jpg',9/16,{muted:true})],
+{sec:1,title:'',media:[V('2022-crane-a','poster-2022-crane-a.jpg',9/16),V('2022-crane-b','poster-2022-crane-b.jpg',9/16,{muted:true})],
  notes:''},
-{sec:1,title:'Off-the-shelf parts, built in-house',media:[I('off-the-shelf-assembly.jpg',4/3),I('off-the-shelf-electronics.jpg',4/3)],
+{sec:1,title:'',media:[I('off-the-shelf-assembly.jpg',4/3),I('off-the-shelf-electronics.jpg',4/3)],
  notes:''},
-{sec:1,title:'Early prototypes: test on real bricks, fast',media:[I('prototype-gripper-test.jpg',4/3),I('prototype-brick-wall.jpg',4/3)],
+{sec:1,title:'',media:[I('prototype-gripper-test.jpg',4/3),I('prototype-brick-wall.jpg',4/3)],
  notes:''},
-{sec:1,title:'Testing in the office courtyard',media:[I('courtyard-1.jpg',.75),I('courtyard-2.jpg',4/3),I('courtyard-3.jpg',.75)],
+{sec:1,title:'',media:[V('2023-drive-base','poster-2023-drive-base.jpg',9/16,{muted:true,loop:true}),V('2023-rack-pinion','poster-2023-rack-pinion.jpg',16/9,{muted:true,loop:true}),V('2023-office-build','poster-2023-office-build.jpg',9/16,{loop:true})],
  notes:''},
-{sec:1,title:'2023: still crappy, getting better',media:[V('2023-drive-base','poster-2023-drive-base.jpg',9/16,{muted:true,loop:true}),V('2023-rack-pinion','poster-2023-rack-pinion.jpg',16/9,{muted:true,loop:true}),V('2023-office-build','poster-2023-office-build.jpg',9/16,{loop:true})],
+{sec:1,title:'',media:[I('courtyard-1.jpg',.75),I('courtyard-2.jpg',4/3),I('courtyard-3.jpg',.75)],
  notes:''},
 
 {sec:2,title:'The best part is no part',media:[{...I('cad-hopper.png',1.1466),contain:true},V('hopper','poster-hopper.jpg',9/16,{loop:true})],
+ notes:''},
+{sec:2,title:'',media:[I('hopper-seam-broken.jpg',.7681),I('panama-hopper-overfill.jpg',.7681),I('gripper-caked.jpg',.7597)],
  notes:''},
 {sec:2,title:'The proof is in the field',media:[I('field-house-scaffold.jpg',16/9),I('field-new-build-site.jpg',16/9)],
  notes:''},
@@ -161,7 +163,7 @@ const SLIDES=[
  notes:''},
 {sec:3,title:'Testing new robots at Plantage',media:[I('plantage-1.jpg',4/3),I('plantage-2.jpg',1.5004)],
  notes:''},
-{sec:3,title:'The fleet: Pisa, Petra, Panama',media:[I('fleet-workshop.jpg',.6665),I('fleet-pisa.jpg',.6665),I('fleet-panama.jpg',.6665)],
+{sec:3,layout:'bleed',title:'Petra, Pisa, Panama',media:[I('fleet-lineup.jpg',1.4973)],
  notes:''},
 {sec:3,title:'New: wall pointing and building at height',media:[V('wall-pointing','poster-wall-pointing.jpg',16/9,{loop:true}),I('wall-at-height.jpg',.75)],
  notes:''},
@@ -196,7 +198,7 @@ function build(s,i){
   const el=document.createElement('section'); el.className='slide l-'+(s.layout||'row');
   let h='';
   if(s.layout==='cover'){
-    h=`<div class="big">Automating onsite construction with robotics &amp; software</div><div class="who">Niall &amp; Dom · Monumental</div><div class="tag">We’re hiring hardware engineers</div>`;
+    h=`<div class="big">Automating onsite construction with robotics &amp; software</div><div class="who">Dom, Chief of Staff · Niall, Founding Hardware Engineer</div><div class="tag">We’re hiring hardware engineers</div>`;
   }else if(s.layout==='bleed'){
     h=s.media.map(cell).join('')+(s.title?`<div class="cap">${s.title}</div>`:'');
   }else if(s.layout==='grid2'){

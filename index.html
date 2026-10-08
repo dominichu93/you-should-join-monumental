@@ -235,18 +235,26 @@ addEventListener('resize',fit);fit();
 layoutRows();
 
 /* ── navigation + video ── */
-let cur=0;
+let cur=0, pendingSound=null;
+function unlockSound(){if(pendingSound&&pendingSound.closest('.slide.on')){pendingSound.muted=false;pendingSound.play().catch(()=>{})}pendingSound=null}
+addEventListener('pointerdown',unlockSound,true);addEventListener('keydown',unlockSound,true);
 function vids(i){return [...els[i].querySelectorAll('video')]}
 function go(i){
   i=Math.max(0,Math.min(N-1,i));
-  vids(cur).forEach(v=>{v.pause()});
+  vids(cur).forEach(v=>{v.pause()}); pendingSound=null;
   els[cur].classList.remove('on'); cur=i; els[cur].classList.add('on');
   history.replaceState(null,'','#'+(cur+1));
   // first video on the slide plays with sound; the rest play muted alongside it
-  vids(cur).forEach((v,k)=>{v.muted=k>0||v.dataset.muted==='1';v.currentTime=v.currentTime||0;v.play().catch(()=>{})});
+  // first video on the slide plays with sound; if the browser blocks sound (no recent click/keypress),
+  // play muted right away and turn the sound on at the next click or key
+  vids(cur).forEach((v,k)=>{
+    const sound=k===0&&v.dataset.muted!=='1';
+    v.preload='auto'; v.muted=!sound;
+    v.play().catch(()=>{v.muted=true;v.play().catch(()=>{});if(sound)pendingSound=v});
+  });
   // warm the next slide's media
   if(els[cur+1]) els[cur+1].querySelectorAll('img').forEach(im=>im.decode&&im.decode().catch(()=>{}));
-  if(els[cur+1]) els[cur+1].querySelectorAll('video').forEach(v=>v.preload='auto');
+  [1,2].forEach(d=>{if(els[cur+d]) els[cur+d].querySelectorAll('video').forEach(v=>v.preload='auto')});
   sendNotes();
   document.querySelectorAll('#over button').forEach((b,k)=>b.classList.toggle('cur',k===cur));
 }
